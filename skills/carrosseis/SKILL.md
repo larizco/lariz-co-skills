@@ -37,7 +37,11 @@ dela (Claude Code no terminal ou na aba Code do app desktop).
    terminal atual pode não enxergar o programa: abra uma sessão nova ou use o caminho completo. Confira de novo no fim.
 
 ### 0. Projeto
-Se não souber `<projeto>`, pergunte onde salvar (ferramenta de escolher pasta se existir; senão caminho/arrastar).
+Procure `lariz-co.md` na pasta atual (é o arquivo de estado do setup `/lariz-co:init`). **Achou:** essa pasta é o
+`<projeto>`; leia o arquivo e pule o que já está aprovado (marca, elementos, ferramentas). **Não achou e ela nunca
+fez o setup:** ofereça rodar `/lariz-co:init` primeiro (escolhe pasta e marca com calma); se ela preferir seguir
+direto, pergunte onde salvar (ferramenta de escolher pasta se existir; senão caminho/arrastar) e crie o `lariz-co.md`
+no formato do init. Atualize o `lariz-co.md` a cada etapa concluída.
 Se `<projeto>/marca/tokens.json` existe → leia `marca/marca.md`, `marca/elementos/README.md` e
 `carrosseis/_historico.md`, mostre `marca/board.png` e pergunte se segue com essa marca. Pule pro passo 3.
 

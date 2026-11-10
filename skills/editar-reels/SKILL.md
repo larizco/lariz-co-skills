@@ -50,9 +50,14 @@ do claude.ai sem acesso ao computador ela não funciona: diga isso e sugira o Cl
    empresa maior, mostre o link e siga só depois que ela confirmar que vai cuidar disso.
 
 ### 0. Projeto
-Pergunte onde fica o projeto (ferramenta de escolher pasta se existir; senão caminho/arrastar a pasta). Se já existe
-`<projeto>/marca/tokens.json`, leia `marca/marca.md` + `marca/elementos/README.md`, mostre `marca/board.png` e pergunte
-se segue igual. Se já existe `R/`, leia `R/historico.md` (vídeos anteriores, medidas do layout vertical).
+Procure `lariz-co.md` na pasta atual (é o arquivo de estado do setup `/lariz-co:init`). **Achou:** essa pasta é o
+`<projeto>`; leia o arquivo e pule tudo o que já está aprovado (marca, elementos, ferramentas) e use a origem dos
+vídeos anotada lá. **Não achou e ela nunca fez o setup:** ofereça rodar `/lariz-co:init` primeiro (é o caminho mais
+fácil, escolhe pasta e marca); se ela preferir seguir direto, pergunte onde fica o projeto (ferramenta de escolher pasta
+se existir; senão caminho/arrastar) e crie o `lariz-co.md` no formato do init.
+Se já existe `<projeto>/marca/tokens.json`, leia `marca/marca.md` + `marca/elementos/README.md`, mostre
+`marca/board.png` e pergunte se segue igual. Se já existe `R/`, leia `R/historico.md` (vídeos anteriores, medidas do
+layout vertical). Atualize o `lariz-co.md` a cada etapa concluída.
 
 ### 1. Marca ⏸ e elementos ⏸
 Pergunte primeiro: **"você já tem identidade visual?"** Siga `references/marca-setup.md` (A = importar a pasta dela;
@@ -71,7 +76,17 @@ dizendo o que é e quanto baixa, com OK antes:
 Requisitos de máquina: ~6 GB livres em disco; render de um reel de 1 min leva ~5–10 min num notebook comum.
 
 ### 3. Receber o vídeo
-Peça pra ela **selecionar o vídeo** (arrastar o arquivo pro chat ou colar o caminho). Pergunte junto (uma mensagem só):
+**Onde estão os vídeos?** Se o `lariz-co.md` já diz, use; senão pergunte (com botões): uma **pasta no computador**,
+um **link compartilhável do Google Drive** (de um arquivo ou de uma pasta), ou um arquivo só (arrastar pro chat /
+colar o caminho). Anote a origem em `lariz-co.md` (`vídeos:`) pra não perguntar de novo.
+- **Pasta local:** liste os vídeos (`.mp4 .mov .m4v`, com data e duração via `ffprobe`) e pergunte qual editar agora.
+- **Google Drive:** se houver conector do Google Drive nesta sessão, use-o (listar a pasta, baixar o arquivo
+  escolhido). Sem conector: o link precisa estar como "qualquer pessoa com o link pode ver" (se der erro de acesso,
+  peça pra ela mudar isso no Drive). Baixe com `uvx gdown "<link do arquivo>" -O "<projeto>/videos-brutos/"`
+  ou, pra pasta, `uvx gdown --folder "<link da pasta>" -O "<projeto>/videos-brutos/"` (pasta com muitos vídeos:
+  liste primeiro com `uvx gdown --folder --json "<link>"` e baixe só o escolhido pelo link/ID dele). Diga o tamanho
+  antes de baixar. (`uvx` vem com o uv, instalado em "Antes de tudo".)
+Depois de saber qual é o vídeo, pergunte junto (uma mensagem só):
 - **formato**: vertical 1080×1920 (Reels/TikTok/Shorts) ou horizontal 1920×1080 (YouTube);
 - o áudio é **do próprio vídeo** ou ela gravou num **microfone à parte** (aí peça esse arquivo também);
 - o vídeo já está **cortado** (sem erros/pausas) ou é bruto (se bruto, sugira cortar no CapCut/editor antes — esta

@@ -1,28 +1,35 @@
 # lariz.co · skills para Claude
 
-Duas skills que usam a **mesma marca** (a pasta `marca/` do seu projeto):
+Carrosséis criativos e reels dinâmicos **na sua marca**, com o Claude te guiando passo a passo e você aprovando
+cada etapa. Não precisa saber programar.
 
 | skill | faz |
 |---|---|
-| `lariz-co:carrosseis` | carrosséis curtos e criativos (5–7 slides, gancho forte), PNG 2160×2700, editor visual de revisão |
-| `lariz-co:editar-reels` | vídeos talking-head dinâmicos: legendas curtas, palavras-chave gigantes, gancho, cards animados (Remotion) |
+| `/lariz-co:init` | **comece por aqui**: define sua identidade visual, escolhe/cria sua pasta de conteúdo, confere as ferramentas e te leva pro carrossel ou pro reels |
+| `/lariz-co:carrosseis` | carrosséis curtos e criativos (5–7 slides, gancho forte), PNG em alta, editor visual de revisão |
+| `/lariz-co:editar-reels` | vídeos falando pra câmera viram reels dinâmicos: legendas curtas, palavras-chave gigantes, gancho, cards animados |
 
-As duas seguem o mesmo caminho, sempre aprovando com você em etapas: **marca** (importa a sua ou monta com você) →
-**elementos** reutilizáveis (SVG/CSS) → **conteúdo/vídeo** → **roteiro** → **design/edição** → **entrega**.
-
-## Instalar no Claude Code
-Dentro do Claude Code, rode:
+## 1. Instalar (uma vez)
+Abra o **Claude Code** (aba **Code** do app Claude no computador, ou `claude` no terminal) e cole esta mensagem:
 ```
-/plugin marketplace add larizco/lariz-co-skills
-/plugin install lariz-co@lariz-co
+Instala pra mim o plugin da lariz.co rodando no terminal:
+claude plugin marketplace add larizco/lariz-co-skills
+claude plugin install lariz-co@lariz-co
+Depois me avisa se deu certo.
 ```
-Reinicie a sessão e peça: *"faz um carrossel sobre…"* ou *"edita esse vídeo pra reels"*.
-Para receber versões novas: `/plugin marketplace update lariz-co`.
+(Ou, no terminal, digite `/plugin marketplace add larizco/lariz-co-skills` e `/plugin install lariz-co@lariz-co`.)
 
-## Instalar no app do Claude (claude.ai / desktop)
-Baixe o `.zip` da skill na página de [Releases](https://github.com/larizco/lariz-co-skills/releases) e envie em
-**Configurações → Capacidades → Skills**. Use no **Claude Code** (aba Code do app desktop): as skills precisam rodar
-programas no seu computador (ver Requisitos).
+## 2. Começar
+Abra uma **conversa nova** e digite:
+```
+/lariz-co:init
+```
+O guia te pergunta da sua identidade visual (ou cria uma com você), onde guardar seu conteúdo, instala o que
+faltar no computador e te leva pro que você quer fazer. Da próxima vez, abra o Claude na sua pasta de conteúdo e
+peça com suas palavras: *"faz um carrossel sobre…"*, *"edita meu vídeo novo pra reels"*.
+
+Versões novas: peça pro Claude *"atualiza o plugin da lariz.co"* (ele roda `claude plugin marketplace update lariz-co` e
+`claude plugin update lariz-co@lariz-co`) e abra uma conversa nova.
 
 ## Requisitos
 As duas skills precisam do **Claude Code** (terminal ou aba Code do app desktop), porque rodam programas no seu
@@ -44,6 +51,7 @@ Essas skills se apoiam em ferramentas de terceiros, cada uma com a sua licença:
 | [FFmpeg](https://ffmpeg.org) | corta, converte e extrai o áudio dos vídeos | LGPL/GPL |
 | [Node.js](https://nodejs.org) | roda o Remotion | MIT |
 | [Python](https://www.python.org) + [uv](https://docs.astral.sh/uv/) | scripts de marca, áudio e slides; instala o WhisperX isolado | PSF / MIT-Apache |
+| [gdown](https://github.com/wkentaro/gdown) | baixa vídeos de um link compartilhado do Google Drive | MIT |
 | [Pillow](https://python-pillow.org) | otimiza imagens do editor de revisão dos carrosséis | MIT-CMU |
 | Chrome / Edge / Chromium | transforma os slides HTML em PNG | — |
 | [Google Fonts](https://fonts.google.com) | fontes da sua marca, quando você não tem as suas | licenças abertas (OFL/Apache) |
