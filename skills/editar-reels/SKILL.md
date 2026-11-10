@@ -37,14 +37,26 @@ B = entrevista + 3 opções). Depois, se ela não tem elementos, crie o kit em S
 Script: `python SKILL/scripts/marca.py init|fonte|board <projeto>`. A pasta `marca/` é a mesma da skill de carrosséis.
 
 ### 2. Montar o ambiente (só na primeira vez) ⏸
-`python SKILL/scripts/setup_reels.py <projeto>` copia o template pra `R/`, gera `src/brand.ts` e diz o que falta.
-Antes de instalar, **diga o que vai baixar e o tamanho** e peça OK:
-- Node 18+ → `cd R/remotion && npm install` (~300 MB).
-- ffmpeg no PATH (Windows: `winget install Gyan.FFmpeg`; Mac: `brew install ffmpeg`).
-- Python 3.11 + uv → `cd R/pipeline && uv venv --python 3.11 .venv` e
-  `uv pip install --python <PY> --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match -r requirements.txt`
-  (WhisperX + torch CPU, ~2 GB; o modelo do Whisper baixa sozinho na 1ª transcrição).
-Rode `setup_reels.py <projeto> --check` no fim. Mudou a marca depois? `marca.py ts <projeto>` de novo.
+Esta skill precisa rodar comandos no computador dela (Claude Code no terminal ou na aba Code do app desktop). No chat
+do claude.ai sem acesso ao computador ela não funciona: diga isso e sugira o Claude Code.
+
+`python SKILL/scripts/setup_reels.py <projeto>` copia o template pra `R/`, gera `src/brand.ts` e mostra o que falta
+(`--check` só mostra). Instale **só o que faltar**, explicando em português simples o que é cada coisa, quanto baixa,
+e pedindo OK antes. Ela não precisa saber programar: você roda tudo.
+1. **Programas do sistema** (uma vez por computador; se `winget`/`brew` pedirem senha de administrador, peça pra ela
+   digitar a senha; você nunca digita senha):
+   | falta | Windows | Mac (precisa do Homebrew: brew.sh) |
+   |---|---|---|
+   | Node 18+ | `winget install OpenJS.NodeJS.LTS` | `brew install node` |
+   | ffmpeg | `winget install Gyan.FFmpeg` | `brew install ffmpeg` |
+   | uv (traz o Python 3.11) | `winget install astral-sh.uv` | `brew install uv` |
+   | Python (pros scripts de marca) | `winget install Python.Python.3.12` | `brew install python` |
+   Depois de instalar pelo winget, o terminal atual pode não enxergar o programa: abra uma sessão nova ou use o caminho completo.
+2. **Pacotes do projeto** (uma vez por projeto): `cd R/remotion && npm install` (~300 MB) e
+   `cd R/pipeline && uv venv --python 3.11 .venv && uv pip install --python <PY> --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match -r requirements.txt`
+   (WhisperX + torch CPU, ~2 GB; o modelo do Whisper, ~1,5 GB, baixa sozinho na 1ª transcrição). Rode em background.
+3. `setup_reels.py <projeto> --check` tem que dar tudo `ok`. Mudou a marca depois? `marca.py ts <projeto>` de novo.
+Requisitos de máquina: ~6 GB livres em disco; render de um reel de 1 min leva ~5–10 min num notebook comum.
 
 ### 3. Receber o vídeo
 Peça pra ela **selecionar o vídeo** (arrastar o arquivo pro chat ou colar o caminho). Pergunte junto (uma mensagem só):

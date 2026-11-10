@@ -21,11 +21,13 @@ Para receber versões novas: `/plugin marketplace update lariz-co`.
 
 ## Instalar no app do Claude (claude.ai / desktop)
 Baixe o `.zip` da skill na página de [Releases](https://github.com/larizco/lariz-co-skills/releases) e envie em
-**Configurações → Capacidades → Skills**.
+**Configurações → Capacidades → Skills** (o de carrosséis funciona no app; o de reels precisa do Claude Code, ver abaixo).
 
 ## Requisitos
 - **Carrosséis:** Python 3.10+ com Pillow, e Chrome, Edge ou Chromium.
-- **Reels:** além disso, Node 18+, ffmpeg e Python 3.11 + uv. A skill guia a instalação e pede OK antes de baixar.
+- **Reels:** precisa do **Claude Code** (terminal ou aba Code do app desktop), porque roda programas no seu computador.
+  Na primeira vez o Claude confere o que falta (Node, ffmpeg, Python/uv, Remotion, WhisperX) e instala pra você,
+  pedindo OK antes de cada download (~3–4 GB no total, só uma vez). Não funciona no chat do claude.ai.
 
 ---
 Skill criada por **Lariz · lariz.co**. Uso pessoal — não redistribua nem revenda (ver [LICENSE.md](LICENSE.md)).
