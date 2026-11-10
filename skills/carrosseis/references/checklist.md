@@ -9,7 +9,8 @@
 **Design**
 - [ ] Cores e fontes só da marca (variáveis do tokens.css); display só em título grande; manuscrita só em comentário.
 - [ ] Texto leve com UMA palavra forte por frase.
-- [ ] Fundos alternam; escuro no máx. 1 slide; nenhum fundo sólido "vazio".
+- [ ] **Fundos revezam**: ≥ 3 fundos diferentes, nunca o mesmo em slides vizinhos, nenhum em mais da metade (a menos
+      que ela tenha pedido fundo contínuo); escuro/accent no máx. 1 slide; nenhum fundo sólido "vazio".
 - [ ] Peças se sobrepõem, prints/fotos grandes e cortados; ≥ 1 peça diferente por slide; nada repetido > 2×.
 - [ ] Cada elemento tem relação com o texto. Sem sombra.
 - [ ] Nada cortado sem querer, nada cobrindo palavra, margens ~70px, texto legível no celular (corpo ≥ 36px).

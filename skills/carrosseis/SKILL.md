@@ -59,7 +59,8 @@ Pergunte: **"você já tem o conteúdo (texto, roteiro, tópicos) ou quer que eu
 - **Tem:** peça o texto. Pergunte se pode melhorar (mais curto, mais gancho) ou se é "exatamente assim".
 - **Não tem:** faça as perguntas de `references/conteudo.md` (tema, objetivo, pra quem, o que ela sabe/acredita
   sobre o tema, exemplos/histórias dela, CTA) e escreva.
-Entregue uma **proposta slide a slide** (tabela: nº · texto · ideia visual · elementos · fundo) + **3–5 opções de gancho**
+Entregue uma **proposta slide a slide** (tabela: nº · texto · ideia visual · elementos · fundo — os **fundos revezam**:
+≥ 3 diferentes, nunca igual em slides vizinhos, salvo se ela pedir fundo contínuo) + **3–5 opções de gancho**
 + estilo da capa e por que é diferente das anteriores (`carrosseis/_historico.md`). Junto, a **legenda** do post.
 ⏸ Aprovação do roteiro. Não desenhe antes.
 

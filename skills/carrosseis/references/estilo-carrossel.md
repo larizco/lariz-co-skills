@@ -27,9 +27,18 @@ adapte a decoração: menos objetos, mais respiro, mas sempre com UMA peça visu
 ## Composição (1080×1350)
 - Margem de segurança ~70px; texto nunca encosta na borda.
 - **Assimetria**: título fora do centro, peças nos cantos, diagonais. Respiro de ~35–45%.
-- **Fundos**: alterne 2–3 (`.bg-paper`, `.bg-grid`, `.bg-soft1/2/3`, `.bg-dots`, `.bg-lined`, foto); nunca o mesmo em
-  slides vizinhos. Fundo escuro (`.bg-ink`) dá contraste ótimo mas use no máx. 1 slide (gancho, virada ou CTA).
-  Em fundo de cor sólida, ponha um elemento de fundo (grade, estrelinhas, pontinhos) em vez de deixar vazio.
+- **Fundos SEMPRE revezam** (regra padrão; só não vale se ela pedir explicitamente fundo contínuo/igual em todos):
+  - use **pelo menos 3 fundos diferentes** no carrossel e **nunca o mesmo em dois slides vizinhos**;
+  - nenhum fundo aparece em mais da metade dos slides;
+  - misture tipos: um com textura (`.bg-grid`, `.bg-dots`, `.bg-lined`), um de cor suave (`.bg-soft1/2/3`,
+    `.bg-sky`, `.bg-glow`, `.bg-split`) e um claro/limpo (`.bg-paper`) ou foto; varie a intensidade (um mais clarinho
+    pra momento calmo, um mais vivo pro momento "uau");
+  - fundo escuro (`.bg-ink`) ou `.bg-accent` dá contraste ótimo, mas no máx. 1 slide (gancho, virada ou CTA);
+  - em fundo de cor sólida, ponha uma camada de textura por cima (`.fx-grid`, `.fx-dots`, `.fx-stars`, um elemento
+    de fundo da marca) em vez de deixar vazio. Opacidade de textura é ajuste da camada, nunca do slide inteiro.
+  - Na proposta (tabela slide a slide) a coluna **fundo** já mostra o revezamento; confira antes de mandar.
+  - Fundo contínuo (pedido dela): um fundo grande que atravessa os slides (ex.: faixa/ilustração que continua no
+    próximo, `background-position` deslocado 1080px por slide) — também é um bom recurso quando ela pedir.
 - **Variedade**: cada slide com layout e 1–2 elementos diferentes dos vizinhos; o mesmo elemento decorativo no máx.
   2× por carrossel. Mão-cursor só quando "clica" em algo.
 
@@ -41,7 +50,7 @@ título gigante com palavra em marca-texto + 2–3 objetos grandes; print gigant
 (palavra gigante / texto selecionado / empilhado) e deixe ela escolher.
 
 ## Receitas do base.css
-Fundos `.bg-*` · destaque `.hl` `.mark(.alt)` `.selx` · `.ticket` (etiqueta serrilhada) · `.bubble(.dark/.left)` ·
+Fundos `.bg-*` (paper, grid, lined, dots, soft1-3, sky(.vivid), glow, split(.v), ink, accent) + texturas `.fx-grid` `.fx-dots` `.fx-stars` · destaque `.hl` `.mark(.alt)` `.selx` · `.ticket` (etiqueta serrilhada) · `.bubble(.dark/.left)` ·
 `.star` · `.postit` · `.polaroid` · `.tagchip` · `.sticker-outline` · `.swipe` · `.emo` (emoji grande) ·
 interface: `.notif` `.notes` `.rem` `.chat.them/.me` `.imsg-input` `.search` `.emojibar` `.browser` `.goal` ·
 `.print` (print/foto arredondado) · `.el` (elemento SVG/PNG de `img/elementos/`).

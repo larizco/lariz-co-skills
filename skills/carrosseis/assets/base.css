@@ -8,7 +8,7 @@ body{font-family:var(--font-body);color:var(--ink);-webkit-font-smoothing:antial
 .abs{position:absolute}
 .center{left:0;right:0;text-align:center}
 
-/* ===== fundos (alterne 2–3 no carrossel; nunca o mesmo em slides vizinhos) ===== */
+/* ===== fundos: REVEZE (≥ 3 diferentes por carrossel, nunca igual em slides vizinhos, salvo pedido de fundo contínuo) ===== */
 .bg-paper{background:var(--paper)}
 .bg-soft1{background:var(--soft1)}.bg-soft2{background:var(--soft2)}.bg-soft3{background:var(--soft3)}
 .bg-ink{background:var(--ink);color:#fff}                 /* contraste forte: gancho, virada ou CTA (no máx. 1 por carrossel) */
@@ -18,6 +18,19 @@ body{font-family:var(--font-body);color:var(--ink);-webkit-font-smoothing:antial
 .bg-grid{background-color:var(--paper);background-image:linear-gradient(color-mix(in srgb,var(--ink) 9%,transparent) 2px,transparent 2px),linear-gradient(90deg,color-mix(in srgb,var(--ink) 9%,transparent) 2px,transparent 2px);background-size:54px 54px}
 .bg-lined{background-color:var(--paper);background-image:linear-gradient(transparent 62px,color-mix(in srgb,var(--accent) 22%,transparent) 62px 64px);background-size:100% 64px}
 .bg-dots{background-color:var(--soft1);background-image:radial-gradient(color-mix(in srgb,var(--ink) 16%,transparent) 3px,transparent 3.5px);background-size:44px 44px}
+/* "céu": degradê suave entre as cores da marca (momentos emotivos, capa) */
+.bg-sky{background:linear-gradient(180deg,var(--soft3) 0%,var(--soft1) 55%,var(--paper) 100%)}
+.bg-sky.vivid{background:linear-gradient(170deg,color-mix(in srgb,var(--accent) 55%,var(--soft3)) 0%,color-mix(in srgb,var(--accent2) 60%,var(--soft1)) 60%,var(--soft1) 100%)}
+/* brilho: cor suave com um "sol" difuso de accent2 */
+.bg-glow{background:radial-gradient(circle at 72% 22%,color-mix(in srgb,var(--accent2) 50%,transparent) 0,transparent 48%),var(--soft2)}
+/* dividido em dois tons (antes/depois, comparação) */
+.bg-split{background:linear-gradient(180deg,var(--soft2) 0 50%,var(--paper) 50% 100%)}
+.bg-split.v{background:linear-gradient(90deg,var(--soft3) 0 50%,var(--soft1) 50% 100%)}
+/* camadas de textura pra pôr por cima de fundo sólido: <div class="fx-grid"></div> como 1º filho do .slide */
+.fx-grid,.fx-dots,.fx-stars{position:absolute;inset:0;pointer-events:none}
+.fx-grid{background-image:linear-gradient(color-mix(in srgb,var(--paper) 35%,transparent) 2px,transparent 2px),linear-gradient(90deg,color-mix(in srgb,var(--paper) 35%,transparent) 2px,transparent 2px);background-size:54px 54px}
+.fx-dots{background-image:radial-gradient(color-mix(in srgb,var(--paper) 45%,transparent) 3px,transparent 3.5px);background-size:44px 44px}
+.fx-stars{background:var(--accent2);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='400'%3E%3Cpath d='M60 44L65.2 64.8L86 70L65.2 75.2L60 96L54.8 75.2L34 70L54.8 64.8ZM250 28L252.4 37.6L262 40L252.4 42.4L250 52L247.6 42.4L238 40L247.6 37.6ZM300 200L306.0 224.0L330 230L306.0 236.0L300 260L294.0 236.0L270 230L294.0 224.0ZM120 286L122.8 297.2L134 300L122.8 302.8L120 314L117.2 302.8L106 300L117.2 297.2ZM200 162L201.6 168.4L208 170L201.6 171.6L200 178L198.4 171.6L192 170L198.4 168.4ZM30 211L31.8 218.2L39 220L31.8 221.8L30 229L28.2 221.8L21 220L28.2 218.2ZM330 350L332.0 358.0L340 360L332.0 362.0L330 370L328.0 362.0L320 360L328.0 358.0Z'/%3E%3C/svg%3E") 0 0/360px 400px repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='400'%3E%3Cpath d='M60 44L65.2 64.8L86 70L65.2 75.2L60 96L54.8 75.2L34 70L54.8 64.8ZM250 28L252.4 37.6L262 40L252.4 42.4L250 52L247.6 42.4L238 40L247.6 37.6ZM300 200L306.0 224.0L330 230L306.0 236.0L300 260L294.0 236.0L270 230L294.0 224.0ZM120 286L122.8 297.2L134 300L122.8 302.8L120 314L117.2 302.8L106 300L117.2 297.2ZM200 162L201.6 168.4L208 170L201.6 171.6L200 178L198.4 171.6L192 170L198.4 168.4ZM30 211L31.8 218.2L39 220L31.8 221.8L30 229L28.2 221.8L21 220L28.2 218.2ZM330 350L332.0 358.0L340 360L332.0 362.0L330 370L328.0 362.0L320 360L328.0 358.0Z'/%3E%3C/svg%3E") 0 0/360px 400px repeat}  /* estrelinhas de 4 pontas na cor accent2 */
 
 /* ===== tipografia ===== */
 .title{font-family:var(--font-body);font-weight:700;font-size:64px;line-height:1.12;letter-spacing:-.01em}
