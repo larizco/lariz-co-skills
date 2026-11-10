@@ -21,7 +21,7 @@ Para receber versões novas: `/plugin marketplace update lariz-co`.
 
 ## Instalar no app do Claude (claude.ai / desktop)
 Baixe o `.zip` da skill na página de [Releases](https://github.com/larizco/lariz-co-skills/releases) e envie em
-**Configurações → Capacidades → Skills** (o de carrosséis funciona no app; o de reels precisa do Claude Code, ver abaixo).
+**Configurações → Capacidades → Skills** (o de reels precisa do Claude Code, ver abaixo; o de carrosséis precisa de Python e Chrome, então funciona melhor no Claude Code também).
 
 ## Requisitos
 - **Carrosséis:** Python 3.10+ com Pillow, e Chrome, Edge ou Chromium.
