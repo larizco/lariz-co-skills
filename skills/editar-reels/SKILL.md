@@ -26,6 +26,29 @@ Pare em cada ⏸, mostre (imagem, tabela ou mp4) e espere o OK. Feedback dela ("
 
 ## Fluxo
 
+### Antes de tudo: conferir e instalar as ferramentas ⏸
+**Se a pessoa ainda não tiver as ferramentas, você instala** (com o OK dela), antes de qualquer outro passo. Ela não
+precisa saber programar nem abrir nada: você roda os comandos e explica cada um em português simples.
+Esta skill precisa rodar comandos no computador dela (Claude Code no terminal ou na aba Code do app desktop). No chat
+do claude.ai sem acesso ao computador ela não funciona: diga isso e sugira o Claude Code.
+
+1. **Confira o que já existe** (rápido, sem instalar nada): `python --version` (ou `python3`), `node --version`,
+   `ffmpeg -version`, `uv --version`. Mostre pra ela uma lista curta: ✅ já tem / ⬇️ falta.
+2. **Instale só o que faltar**, dizendo o que é, pra que serve e quanto baixa, e peça OK uma vez pra lista toda:
+   | falta | pra que serve | Windows | Mac (precisa do Homebrew: brew.sh) |
+   |---|---|---|---|
+   | Python 3.10+ | scripts de marca e de áudio | `winget install Python.Python.3.12` | `brew install python` |
+   | Node 18+ | rodar o Remotion (monta o vídeo) | `winget install OpenJS.NodeJS.LTS` | `brew install node` |
+   | ffmpeg | cortar, converter e extrair áudio | `winget install Gyan.FFmpeg` | `brew install ffmpeg` |
+   | uv | instala o Python 3.11 e o WhisperX isolados | `winget install astral-sh.uv` | `brew install uv` |
+   Se `winget`/`brew` pedir senha de administrador, peça pra ELA digitar (você nunca digita senha). Sem Homebrew no Mac,
+   mostre o comando de instalação de brew.sh e peça pra ela rodar. Depois de instalar pelo winget, o terminal atual
+   pode não enxergar o programa: abra uma sessão nova ou use o caminho completo. Confira de novo no fim (passo 1).
+3. Os pacotes pesados do projeto (Remotion e WhisperX, ~2,5 GB) ficam pro passo 2, depois da marca aprovada.
+4. **Licença do Remotion** (avise uma vez, em uma linha): é grátis pra pessoa física, empresa com até 3 pessoas e
+   ONG; empresa com 4+ pessoas precisa da licença paga do Remotion (remotion.dev/license). Se ela disser que é
+   empresa maior, mostre o link e siga só depois que ela confirmar que vai cuidar disso.
+
 ### 0. Projeto
 Pergunte onde fica o projeto (ferramenta de escolher pasta se existir; senão caminho/arrastar a pasta). Se já existe
 `<projeto>/marca/tokens.json`, leia `marca/marca.md` + `marca/elementos/README.md`, mostre `marca/board.png` e pergunte
@@ -36,22 +59,11 @@ Pergunte primeiro: **"você já tem identidade visual?"** Siga `references/marca
 B = entrevista + 3 opções). Depois, se ela não tem elementos, crie o kit em SVG (`references/elementos.md`).
 Script: `python SKILL/scripts/marca.py init|fonte|board <projeto>`. A pasta `marca/` é a mesma da skill de carrosséis.
 
-### 2. Montar o ambiente (só na primeira vez) ⏸
-Esta skill precisa rodar comandos no computador dela (Claude Code no terminal ou na aba Code do app desktop). No chat
-do claude.ai sem acesso ao computador ela não funciona: diga isso e sugira o Claude Code.
-
+### 2. Montar o projeto de vídeo (só na primeira vez) ⏸
 `python SKILL/scripts/setup_reels.py <projeto>` copia o template pra `R/`, gera `src/brand.ts` e mostra o que falta
-(`--check` só mostra). Instale **só o que faltar**, explicando em português simples o que é cada coisa, quanto baixa,
-e pedindo OK antes. Ela não precisa saber programar: você roda tudo.
-1. **Programas do sistema** (uma vez por computador; se `winget`/`brew` pedirem senha de administrador, peça pra ela
-   digitar a senha; você nunca digita senha):
-   | falta | Windows | Mac (precisa do Homebrew: brew.sh) |
-   |---|---|---|
-   | Node 18+ | `winget install OpenJS.NodeJS.LTS` | `brew install node` |
-   | ffmpeg | `winget install Gyan.FFmpeg` | `brew install ffmpeg` |
-   | uv (traz o Python 3.11) | `winget install astral-sh.uv` | `brew install uv` |
-   | Python (pros scripts de marca) | `winget install Python.Python.3.12` | `brew install python` |
-   Depois de instalar pelo winget, o terminal atual pode não enxergar o programa: abra uma sessão nova ou use o caminho completo.
+(`--check` só mostra). Se ainda faltar algum programa do sistema, volte em "Antes de tudo". Instale **só o que faltar**,
+dizendo o que é e quanto baixa, com OK antes:
+1. (programas do sistema: já conferidos em "Antes de tudo")
 2. **Pacotes do projeto** (uma vez por projeto): `cd R/remotion && npm install` (~300 MB) e
    `cd R/pipeline && uv venv --python 3.11 .venv && uv pip install --python <PY> --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match -r requirements.txt`
    (WhisperX + torch CPU, ~2 GB; o modelo do Whisper, ~1,5 GB, baixa sozinho na 1ª transcrição). Rode em background.

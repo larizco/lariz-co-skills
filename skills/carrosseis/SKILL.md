@@ -13,13 +13,28 @@ peças de "interface de celular", texto leve com UMA palavra forte, CTA que fech
 O que muda é a marca: cores, fontes, elementos e tom de voz são os DELA.
 
 Caminhos: `SKILL` = pasta desta skill; `<projeto>` = pasta de trabalho da pessoa (pergunte na primeira vez; padrão =
-pasta atual). Scripts precisam de Python 3.10+ com Pillow (`pip install pillow`) e Chrome, Edge ou Chromium.
+pasta atual). Scripts precisam de Python 3.10+ com Pillow e Chrome, Edge ou Chromium (ver "Antes de tudo").
 
 ## Regra de ouro: aprovar em etapas ⏸
 Pare em cada ⏸, mostre o resultado (imagem ou link) e espere o OK. Nunca pule etapa pra "ganhar tempo".
 Quando ela aprovar um padrão ("amei", "perfeito") ou reclamar de algo, anote em `marca/marca.md` → "Aprendizados".
 
 ## Fluxo
+
+### Antes de tudo: conferir e instalar as ferramentas ⏸
+**Se a pessoa ainda não tiver as ferramentas, você instala** (com o OK dela), antes de qualquer outro passo. Ela não
+precisa saber programar: você roda os comandos e explica cada um em português simples. Precisa de acesso ao computador
+dela (Claude Code no terminal ou na aba Code do app desktop).
+1. **Confira** (sem instalar nada): `python --version` (ou `python3`), `python -c "import PIL"` e se existe Chrome, Edge
+   ou Chromium. Mostre uma lista curta: ✅ já tem / ⬇️ falta.
+2. **Instale só o que faltar**, dizendo pra que serve e quanto baixa, com um OK pra lista toda:
+   | falta | pra que serve | Windows | Mac (precisa do Homebrew: brew.sh) |
+   |---|---|---|---|
+   | Python 3.10+ | scripts da marca e dos slides | `winget install Python.Python.3.12` | `brew install python` |
+   | Pillow | otimizar imagens do editor de revisão | `python -m pip install pillow` | `python3 -m pip install pillow` |
+   | Chrome (ou Edge/Chromium) | transformar os slides em PNG | `winget install Google.Chrome` (o Windows já costuma ter o Edge) | `brew install --cask google-chrome` |
+   Se pedir senha de administrador, peça pra ELA digitar (você nunca digita senha). Depois de instalar pelo winget, o
+   terminal atual pode não enxergar o programa: abra uma sessão nova ou use o caminho completo. Confira de novo no fim.
 
 ### 0. Projeto
 Se não souber `<projeto>`, pergunte onde salvar (ferramenta de escolher pasta se existir; senão caminho/arrastar).
