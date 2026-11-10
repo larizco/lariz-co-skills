@@ -1,0 +1,14 @@
+{
+  "name": "lariz-co",
+  "owner": { "name": "Lariz", "url": "https://github.com/larizco" },
+  "metadata": { "description": "Skills da Lariz · lariz.co" },
+  "plugins": [
+    {
+      "name": "lariz-co",
+      "source": "./",
+      "description": "Carrosséis curtos e criativos + edição de reels dinâmicos, na marca de quem usa.",
+      "version": "1.0.0",
+      "author": { "name": "Lariz" }
+    }
+  ]
+}

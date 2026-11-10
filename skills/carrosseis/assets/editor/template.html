@@ -1,0 +1,297 @@
+<title>Revisão de carrossel</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Mesa de revisão: palco do slide à esquerda, painel de ajustes à direita. Cores de papelaria, rosa só na seleção. */
+__FONTFACES__
+:root{--bg:#F3EFEA;--panel:#FFFFFF;--ink:#312C28;--ink2:#6B5E58;--line:#E4DDD5;--accent:#D23F78;--accent-soft:#FBE3EC;--ok:#0F6E56;--shadow:0 10px 30px rgba(49,44,40,.12)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1E1A18;--panel:#2A2522;--ink:#F3EBE4;--ink2:#B7A9A0;--line:#413A36;--accent:#FF7DAA;--accent-soft:#4A2634;--ok:#5BD1AE;--shadow:0 10px 30px rgba(0,0,0,.4);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1E1A18;--panel:#2A2522;--ink:#F3EBE4;--ink2:#B7A9A0;--line:#413A36;--accent:#FF7DAA;--accent-soft:#4A2634;--ok:#5BD1AE;--shadow:0 10px 30px rgba(0,0,0,.4);color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;padding-block:16px 96px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;margin-bottom:12px}
+h1{font:400 30px/1 __DISPLAY__;margin:0}
+.sub{color:var(--ink2);font-size:14px;margin:0}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 14px}
+.tab{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:14px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.work{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;align-items:start}
+@media (max-width:860px){.work{grid-template-columns:minmax(0,1fr)}}
+.stagebox{display:flex;justify-content:center;min-width:0}
+.wrap{position:relative;width:min(100%,calc((100vh - 230px)*.8));min-width:260px;aspect-ratio:4/5;overflow:hidden;border-radius:14px;box-shadow:var(--shadow);background:#fff;touch-action:none;user-select:none;-webkit-user-select:none}
+.wrap[hidden]{display:none}
+.host{position:absolute;left:0;top:0;width:1080px;height:1350px;transform-origin:0 0}
+.selbox{position:absolute;border:2px solid var(--accent);border-radius:3px;pointer-events:none;display:none;z-index:5}
+.selbox .grip{position:absolute;right:-10px;bottom:-10px;width:20px;height:20px;border-radius:50%;background:var(--accent);border:3px solid #fff;pointer-events:auto;cursor:nwse-resize;touch-action:none}
+.selbox .rotgrip{position:absolute;left:50%;top:-34px;margin-left:-10px;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--accent);pointer-events:auto;cursor:grab;touch-action:none}
+.selbox .rotgrip::after{content:'';position:absolute;left:7px;top:17px;width:2px;height:14px;background:var(--accent)}
+.selbox .tag{position:absolute;left:-2px;top:-24px;background:var(--accent);color:#fff;font-size:11px;padding:2px 7px;border-radius:5px 5px 5px 0;white-space:nowrap;max-width:240px;overflow:hidden;text-overflow:ellipsis}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);margin:0;font-weight:600}
+.sel-label{font-weight:600;overflow-wrap:anywhere}
+.hint{color:var(--ink2);font-size:13px;margin:0}
+textarea{width:100%;min-height:96px;resize:vertical;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;background:var(--bg);color:var(--ink)}
+textarea:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:10px;padding:8px 12px;font:inherit;font-size:14px;cursor:pointer}
+.btn:hover{border-color:var(--ink2)}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.list{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.list li{border:1px solid var(--line);border-radius:10px;padding:8px 10px;cursor:pointer;font-size:13px;display:flex;flex-direction:column;gap:2px}
+.list li:hover{border-color:var(--accent)}
+.list b{font-weight:600}
+.list span{color:var(--ink2)}
+.chip{display:inline-block;font-size:11px;border-radius:999px;padding:1px 8px;background:var(--accent-soft);color:var(--accent);margin-left:6px}
+.chip.ok{background:transparent;border:1px solid var(--ok);color:var(--ok)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--panel);border-top:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;z-index:20}
+.bar p{margin:0;color:var(--ink2);font-size:14px}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:84px;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;z-index:30;max-width:90vw}
+dialog{border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--ink);width:min(560px,92vw);padding:16px}
+dialog::backdrop{background:rgba(0,0,0,.4)}
+</style>
+
+<header>
+  <h1>Revisão de carrossel</h1>
+  <p class="sub" id="carName"></p>
+</header>
+<div class="tabs" id="tabs" role="tablist" aria-label="Slides"></div>
+<div class="work">
+  <div class="stagebox" id="stage"></div>
+  <aside class="panel">
+    <div>
+      <h2>Item selecionado</h2>
+      <p class="sel-label" id="selLabel">Nenhum</p>
+      <p class="hint" id="selHint">Toque num item do slide para comentar. Arraste para mover, use a bolinha rosa do canto para mudar o tamanho e a bolinha branca no alto para girar (Shift: de 15 em 15°). Setas do teclado ajustam de 1 em 1 px (Shift: 10).</p>
+    </div>
+    <label for="comment" class="hint">O que mudar nele?</label>
+    <textarea id="comment" placeholder="ex.: troca o texto para… / mais perto do título / tira esse laço" disabled></textarea>
+    <div class="row">
+      <button class="btn" id="btnHide" disabled>Esconder item</button>
+      <button class="btn" id="btnReset" disabled>Voltar ao original</button>
+    </div>
+    <div>
+      <h2>Alterações deste carrossel</h2>
+      <ul class="list" id="changes"></ul>
+      <p class="hint" id="noChanges">Nada marcado ainda.</p>
+    </div>
+  </aside>
+</div>
+<div class="bar">
+  <p id="barInfo">0 alterações</p>
+  <div class="row">
+    <button class="btn" id="btnCopy">Copiar resumo</button>
+    <button class="btn primary" id="btnSend" disabled>Enviar para o Claude</button>
+  </div>
+</div>
+<dialog id="dlg"><h2 style="margin:0 0 8px;font-size:16px">Resumo das alterações</h2><p class="hint">Copie e cole no chat com o Claude.</p><textarea id="dlgText" readonly style="min-height:200px"></textarea><div class="row" style="margin-top:10px;justify-content:flex-end"><button class="btn" id="dlgClose">Fechar</button></div></dialog>
+
+<script>
+const DATA = __DATA__;
+const $ = s => document.querySelector(s);
+const state = { cur: 1, sel: null, edits: {}, dirty: new Set(), remote: {}, db: null };
+const slides = {};            // n -> {wrap, host, root, items:[el]}
+const baseOf = e => ({ dx: 0, dy: 0, scale: 1, rot: 0, hidden: false, comment: '' });
+const key = (n, i) => `s${n}-i${i}`;
+const toast = (t) => { const d = document.createElement('div'); d.className = 'toast'; d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 3200) };
+
+$('#carName').textContent = DATA.title.replace(/-/g, ' ');
+
+function labelOf(el, i) {
+  if (el.tagName === 'IMG') return 'imagem · ' + (el.dataset.orig || 'imagem');
+  const t = el.innerHTML.replace(/<br\s*\/?>/g, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  if (t) return 'texto · “' + (t.length > 38 ? t.slice(0, 38) + '…' : t) + '”';
+  return 'forma ou fundo decorativo';
+}
+
+/* ---------- monta slides em shadow DOM ---------- */
+const baseCss = DATA.base.replace(/:root\s*\{/g, ':host{').replace(/(^|\})\s*body\s*\{/g, '$1:host{').replace(/html\s*,\s*body\s*\{[^}]*\}/, '');
+DATA.slides.forEach(s => {
+  const wrap = document.createElement('div'); wrap.className = 'wrap'; wrap.dataset.n = s.n; wrap.hidden = s.n !== 1;
+  const host = document.createElement('div'); host.className = 'host'; wrap.appendChild(host);
+  const root = host.attachShadow({ mode: 'open' });
+  root.innerHTML = `<style>:host{display:block;width:1080px;height:1350px;font-family:var(--font-body);color:var(--ink)}${baseCss}\n${s.css}\n.__nopt{pointer-events:none}</style>` + s.html;
+  const slideEl = root.querySelector('.slide');
+  const items = [...slideEl.children];
+  items.forEach((el, k) => {
+    el.dataset.i = k + 1; el.dataset.label = labelOf(el, k + 1);
+    if (el.tagName === 'DIV' && !el.children.length && !el.textContent.trim() && /inset/.test(el.getAttribute('style') || '')) el.classList.add('__nopt');
+  });
+  const box = document.createElement('div'); box.className = 'selbox'; box.innerHTML = '<span class="tag"></span><span class="rotgrip" title="Arraste para girar"></span><span class="grip" title="Arraste para mudar o tamanho"></span>'; wrap.appendChild(box);
+  slides[s.n] = { wrap, host, root, slideEl, items, box };
+  $('#stage').appendChild(wrap);
+  wire(s.n);
+});
+const fit = () => Object.values(slides).forEach(o => { const w = o.wrap.clientWidth; if (w) o.host.style.transform = `scale(${w / 1080})`; placeBox() });
+new ResizeObserver(fit).observe($('#stage')); addEventListener('resize', fit);
+
+/* ---------- abas ---------- */
+DATA.slides.forEach(s => {
+  const b = document.createElement('button'); b.className = 'tab'; b.role = 'tab'; b.dataset.n = s.n;
+  b.innerHTML = `${s.n} · ${s.name.replace(/-/g, ' ')}<span class="dot" hidden></span>`;
+  b.onclick = () => go(s.n); $('#tabs').appendChild(b);
+});
+function go(n) {
+  state.cur = n; state.sel = null;
+  Object.entries(slides).forEach(([k, o]) => { o.wrap.hidden = +k !== n });
+  document.querySelectorAll('.tab').forEach(t => t.setAttribute('aria-selected', String(+t.dataset.n === n)));
+  fit(); renderPanel();
+}
+
+/* ---------- edições ---------- */
+const get = (n, i) => state.edits[key(n, i)] || (state.edits[key(n, i)] = { slide: n, i, label: slides[n].items[i - 1]?.dataset.label || 'slide inteiro', ...baseOf() });
+const isDefault = e => !e.dx && !e.dy && e.scale === 1 && !e.rot && !e.hidden && !e.comment;
+function apply(n, i) {
+  const el = slides[n]?.items[i - 1]; if (!el) return; const e = state.edits[key(n, i)] || baseOf();
+  el.style.translate = (e.dx || e.dy) ? `${e.dx}px ${e.dy}px` : '';
+  el.style.scale = e.scale !== 1 ? String(e.scale) : '';
+  el.style.rotate = e.rot ? e.rot + 'deg' : '';
+  el.style.opacity = e.hidden ? '.14' : '';
+}
+function touch(n, i) { state.dirty.add(key(n, i)); apply(n, i); placeBox(); renderChanges(); }
+
+/* ---------- interação no slide ---------- */
+function wire(n) {
+  const o = slides[n]; let drag = null;
+  o.host.addEventListener('pointerdown', ev => {
+    const path = ev.composedPath(); const el = path.find(x => x.parentNode === o.slideEl);
+    const i = el && !el.classList.contains('__nopt') ? +el.dataset.i : 0;
+    state.sel = { n, i }; renderPanel(); placeBox();
+    if (!i) return;
+    const e = get(n, i);
+    drag = { x: ev.clientX, y: ev.clientY, dx: e.dx, dy: e.dy, moved: false, id: ev.pointerId };
+    o.host.setPointerCapture(ev.pointerId);
+  });
+  o.host.addEventListener('pointermove', ev => {
+    if (!drag) return; const vs = o.wrap.clientWidth / 1080;
+    const mx = ev.clientX - drag.x, my = ev.clientY - drag.y;
+    if (!drag.moved && Math.hypot(mx, my) < 4) return; drag.moved = true;
+    const e = get(n, state.sel.i); e.dx = Math.round(drag.dx + mx / vs); e.dy = Math.round(drag.dy + my / vs); touch(n, state.sel.i);
+  });
+  const end = () => { drag = null };
+  o.host.addEventListener('pointerup', end); o.host.addEventListener('pointercancel', end);
+  // alça de redimensionar
+  const grip = o.box.querySelector('.grip'); let rs = null;
+  grip.addEventListener('pointerdown', ev => {
+    ev.stopPropagation(); const el = o.items[state.sel.i - 1]; const r = el.getBoundingClientRect();
+    const c = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    rs = { c, d0: Math.hypot(ev.clientX - c.x, ev.clientY - c.y) || 1, s0: get(n, state.sel.i).scale };
+    grip.setPointerCapture(ev.pointerId);
+  });
+  grip.addEventListener('pointermove', ev => {
+    if (!rs) return; const d = Math.hypot(ev.clientX - rs.c.x, ev.clientY - rs.c.y);
+    const e = get(n, state.sel.i); e.scale = Math.min(4, Math.max(.15, +(rs.s0 * d / rs.d0).toFixed(3))); touch(n, state.sel.i);
+  });
+  grip.addEventListener('pointerup', () => { rs = null });
+  // alça de girar
+  const rg = o.box.querySelector('.rotgrip'); let ro = null;
+  rg.addEventListener('pointerdown', ev => {
+    ev.stopPropagation(); const el = o.items[state.sel.i - 1]; const r = el.getBoundingClientRect();
+    const c = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    ro = { c, a0: Math.atan2(ev.clientY - c.y, ev.clientX - c.x), r0: get(n, state.sel.i).rot || 0 };
+    rg.setPointerCapture(ev.pointerId);
+  });
+  rg.addEventListener('pointermove', ev => {
+    if (!ro) return; let d = (Math.atan2(ev.clientY - ro.c.y, ev.clientX - ro.c.x) - ro.a0) * 180 / Math.PI;
+    let v = ro.r0 + d; if (!ev.shiftKey) v = Math.round(v); else v = Math.round(v / 15) * 15;
+    const e = get(n, state.sel.i); e.rot = Math.max(-180, Math.min(180, v)); touch(n, state.sel.i);
+  });
+  rg.addEventListener('pointerup', () => { ro = null });
+}
+function placeBox() {
+  Object.values(slides).forEach(o => o.box.style.display = 'none');
+  const s = state.sel; if (!s || !s.i || s.n !== state.cur) return;
+  const o = slides[s.n], el = o.items[s.i - 1]; if (!el) return;
+  const r = el.getBoundingClientRect(), w = o.wrap.getBoundingClientRect();
+  Object.assign(o.box.style, { display: 'block', left: (r.left - w.left) + 'px', top: (r.top - w.top) + 'px', width: r.width + 'px', height: r.height + 'px' });
+  o.box.querySelector('.tag').textContent = `item ${s.i} · ${el.dataset.label}`;
+}
+addEventListener('keydown', ev => {
+  const s = state.sel; if (!s || !s.i || ev.target.matches('textarea,input')) return;
+  const d = ev.shiftKey ? 10 : 1, e = get(s.n, s.i);
+  const m = { ArrowLeft: ['dx', -d], ArrowRight: ['dx', d], ArrowUp: ['dy', -d], ArrowDown: ['dy', d] }[ev.key];
+  if (ev.key === 'Escape') { state.sel = null; renderPanel(); placeBox(); return }
+  if (!m) return; ev.preventDefault(); e[m[0]] += m[1]; touch(s.n, s.i);
+});
+
+/* ---------- painel ---------- */
+const cm = $('#comment');
+function renderPanel() {
+  const s = state.sel; const has = s && s.i; const slideLevel = s && !s.i;
+  $('#selLabel').textContent = has ? `Slide ${s.n} · item ${s.i} · ${slides[s.n].items[s.i - 1].dataset.label}` : slideLevel ? `Slide ${s.n} · comentário geral` : 'Nenhum';
+  $('#selHint').hidden = !!s;
+  cm.disabled = !s; $('#btnHide').disabled = !has; $('#btnReset').disabled = !has;
+  cm.value = s ? (get(s.n, s.i).comment || '') : '';
+  $('#btnHide').textContent = has && get(s.n, s.i).hidden ? 'Mostrar item' : 'Esconder item';
+  renderChanges();
+}
+cm.addEventListener('input', () => { const s = state.sel; if (!s) return; get(s.n, s.i).comment = cm.value.trim(); touch(s.n, s.i) });
+$('#btnHide').onclick = () => { const s = state.sel; const e = get(s.n, s.i); e.hidden = !e.hidden; touch(s.n, s.i); renderPanel() };
+$('#btnReset').onclick = () => { const s = state.sel; Object.assign(get(s.n, s.i), baseOf()); touch(s.n, s.i); renderPanel() };
+
+function summary(e) {
+  const p = [];
+  if (e.dx || e.dy) p.push(`moveu ${e.dx >= 0 ? '+' : ''}${e.dx}px →, ${e.dy >= 0 ? '+' : ''}${e.dy}px ↓`);
+  if (e.scale !== 1) p.push(`tamanho ${Math.round(e.scale * 100)}%`);
+  if (e.rot) p.push(`girou ${e.rot > 0 ? '+' : ''}${e.rot}°`);
+  if (e.hidden) p.push('esconder');
+  if (e.comment) p.push(`“${e.comment}”`);
+  return p.join(' · ');
+}
+function renderChanges() {
+  const list = Object.values(state.edits).filter(e => !isDefault(e)).sort((a, b) => a.slide - b.slide || a.i - b.i);
+  const ul = $('#changes'); ul.innerHTML = '';
+  list.forEach(e => {
+    const li = document.createElement('li'); const pend = state.dirty.has(key(e.slide, e.i));
+    li.innerHTML = `<b>Slide ${e.slide} · ${e.i ? 'item ' + e.i : 'geral'}<span class="chip ${pend ? '' : 'ok'}">${pend ? 'a enviar' : (e.status || 'enviado')}</span></b><span></span><span></span>`;
+    li.children[1].textContent = e.label; li.children[2].textContent = summary(e);
+    li.onclick = () => { go(e.slide); state.sel = { n: e.slide, i: e.i }; renderPanel(); placeBox() };
+    ul.appendChild(li);
+  });
+  $('#noChanges').hidden = list.length > 0;
+  const pending = list.filter(e => state.dirty.has(key(e.slide, e.i))).length;
+  $('#barInfo').textContent = pending ? `${pending} alteração(ões) para enviar` : list.length ? `${list.length} já enviada(s)` : '0 alterações';
+  $('#btnSend').disabled = !state.db || !pending;
+  document.querySelectorAll('.tab').forEach(t => t.querySelector('.dot').hidden = !list.some(e => e.slide === +t.dataset.n));
+}
+
+/* ---------- enviar / copiar ---------- */
+function textReport() {
+  const list = Object.values(state.edits).filter(e => !isDefault(e)).sort((a, b) => a.slide - b.slide || a.i - b.i);
+  if (!list.length) return '';
+  return `Alterações em ${DATA.title}:\n` + list.map(e => `- Slide ${e.slide}, item ${e.i || 'geral'} (${e.label}): ${summary(e)}`).join('\n');
+}
+$('#btnCopy').onclick = async () => {
+  const t = textReport(); if (!t) return toast('Nada para copiar ainda.');
+  try { await navigator.clipboard.writeText(t); toast('Resumo copiado. Cole no chat.') }
+  catch { $('#dlgText').value = t; $('#dlg').showModal(); $('#dlgText').select() }
+};
+$('#dlgClose').onclick = () => $('#dlg').close();
+$('#btnSend').onclick = async () => {
+  if (!state.db) return; const btn = $('#btnSend'); btn.disabled = true; let n = 0;
+  try {
+    for (const k of [...state.dirty]) {
+      const e = state.edits[k]; await state.db.collection('edits').doc(k).set({ ...e, status: 'pendente', at: Date.now() });
+      state.dirty.delete(k); n++;
+    }
+    toast(`${n} alteração(ões) enviada(s). Avise o Claude no chat.`);
+  } catch (err) { toast('Não consegui enviar (' + (err.code || 'erro') + '). Use "Copiar resumo".') }
+  renderChanges();
+};
+
+/* ---------- db: reaplica o que já foi enviado ---------- */
+(window.claude?.use ? claude.use('db') : Promise.resolve(null)).then(db => {
+  state.db = db; renderChanges(); if (!db) return;
+  db.collection('edits').onSnapshot(snap => {
+    const seen = new Set();
+    snap.docs.forEach(d => {
+      const v = d.data(); seen.add(d.id); state.remote[d.id] = v;
+      if (!state.dirty.has(d.id) && slides[v.slide]) { state.edits[d.id] = { ...baseOf(), ...v }; apply(v.slide, v.i) }
+    });
+    Object.keys(state.remote).forEach(k => { if (!seen.has(k)) { delete state.remote[k]; if (!state.dirty.has(k)) { const e = state.edits[k]; delete state.edits[k]; if (e) apply(e.slide, e.i) } } });
+    renderChanges(); placeBox();
+  }, () => {});
+}).catch(() => {});
+
+go(1);
+</script>

@@ -1,0 +1,10 @@
+{
+  "name": "lariz-co",
+  "version": "1.0.0",
+  "description": "Skills da Lariz (lariz.co): carrosséis curtos e criativos e edição de reels dinâmicos, na marca de quem usa, com aprovação em etapas.",
+  "author": { "name": "Lariz", "url": "https://github.com/larizco" },
+  "homepage": "https://github.com/larizco/lariz-co-skills",
+  "repository": "https://github.com/larizco/lariz-co-skills",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "keywords": ["instagram", "carrossel", "reels", "remotion", "social-media", "marca"]
+}

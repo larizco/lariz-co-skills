@@ -1,0 +1,9 @@
+# Python 3.11. Instalar com:
+# uv pip install --python .venv/Scripts/python.exe --extra-index-url https://download.pytorch.org/whl/cpu --index-strategy unsafe-best-match -r requirements.txt
+# torch/torchaudio fixos em 2.8: o pyannote (VAD do WhisperX) quebra com torchaudio >= 2.9
+torch==2.8.0
+torchaudio==2.8.0
+whisperx==3.7.2
+librosa
+soundfile
+scipy
